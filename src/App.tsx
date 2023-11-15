@@ -1,10 +1,13 @@
+import { RouterProvider } from "react-router-dom"
+import router from "./router/router";
+
 function App() {
 
-  return (
-    <>
-      <span className='bold text-3xl'>Hello World</span>
-    </>
-  )
+	return (
+		<>
+			<RouterProvider router={router}/>
+		</>
+	)
 }
 
 export default App
