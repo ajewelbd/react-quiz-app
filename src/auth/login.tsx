@@ -1,9 +1,11 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
-import { getCurrentUser, getUser, saveToStorage } from "../helpers/helpers";
+import { getCurrentUser, findUser, saveToStorage } from "../helpers/helpers";
 
 
 export default function Login() {
+    const navigate = useNavigate();
+    
     const loggedUser = getCurrentUser();
     if(loggedUser) return (<Navigate to={loggedUser.homePage} />);
 
@@ -13,7 +15,6 @@ export default function Login() {
     })
 
     const [isWrongCredentials, setIsWrongCredentials] = useState(false);
-    const navigate = useNavigate();
 
     const handleCredentials = (e: ChangeEvent<HTMLInputElement>) => {
         setCredentials(prev => ({
@@ -25,10 +26,10 @@ export default function Login() {
     const login = (e: FormEvent) => {
         e.preventDefault();
         setIsWrongCredentials(false);
-        const validUser = getUser(credentials.username, credentials.password);
+        const validUser = findUser(credentials.username, credentials.password);
         if (validUser) {
             saveToStorage("token", `${credentials.username}:${credentials.password}`)
-            navigate(validUser.homePage);
+            navigate("/");
         } else {
             setIsWrongCredentials(true);
         }

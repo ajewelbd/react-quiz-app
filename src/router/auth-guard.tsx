@@ -1,8 +1,12 @@
 import { Navigate } from "react-router-dom";
-import { isValidUser } from "../helpers/helpers";
+import { getCurrentUser } from "../helpers/helpers";
+import Answers from "../answers/answers";
+import Questions from "../questions/questions";
+import Layout from "../layouts/layout";
 
-export default function AuthGuard({ children }: {children: React.ReactNode}) {
-    if (!isValidUser()) return <Navigate to="/login" />
-
-    return children;
+export default function AuthGuard() {
+    const user = getCurrentUser();
+    if (!user) return <Navigate to="/login" />
+    
+    return <Layout>{ user.role == "admin" ? <Questions /> : <Answers />}</Layout>
 }
