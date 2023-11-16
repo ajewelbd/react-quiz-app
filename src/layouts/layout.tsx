@@ -28,6 +28,7 @@ export default function Layout({ children }: {children: React.ReactNode}) {
                         </div>
                     </div>
                 </nav>
+                
                 <div className="container px-5 lg:px-0 md:px-0">
                     {children}
                 </div>

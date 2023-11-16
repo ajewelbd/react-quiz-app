@@ -5,4 +5,4 @@ type AnswerHistory = {
     text: string
 }
 
-export type {AnswerHistory}
+export type { AnswerHistory }

@@ -7,4 +7,4 @@ type User = {
     homePage: string;
 }
 
-export type {User}
+export type { User }
