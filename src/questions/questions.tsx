@@ -1,17 +1,14 @@
 import { useRef } from "react";
-import { getCurrentUser } from "../helpers/helpers";
-import Question from "./question";
+import QuestionDetails from "./question-details";
 import QuestionForm from "./question-form";
 import { useGlobalStateContext } from "../providers/context-provider";
 
 export default function Questions() {
-    const { questions } = useGlobalStateContext();
-    
-    const currentUser = getCurrentUser();
+    const { questions, currentUser } = useGlobalStateContext();    
 
+    const addDialog = useRef<HTMLDialogElement>(null);
+    const openDialog = () => addDialog.current?.showModal();
 
-    const addDialog = useRef<HTMLDialogElement>(null)
-    const openDialog = () => addDialog.current?.showModal()
     return (
         <>
             <div className="flex flex-col gap-y-7">
@@ -26,11 +23,11 @@ export default function Questions() {
                     {!questions.length && (
                         <div className="font-medium text-zinc-900 text-center mt-24">No questions available!</div>
                     )}
-                    {questions.map(question => <Question key={question.id} question={question} />)}
+                    {questions.map(question => <QuestionDetails key={question.id} question={question} />)}
                 </div>
             </div>
 
-            <dialog ref={addDialog} id="add" className="p-7 rounded-md backdrop:bg-blend-darken">
+            <dialog ref={addDialog} id="add" className="p-7 rounded-md">
                 <QuestionForm dialogRef={addDialog} />
             </dialog>
         </>

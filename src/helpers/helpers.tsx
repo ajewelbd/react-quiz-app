@@ -14,10 +14,6 @@ export const getCurrentUser = () => {
     return users.find(user => `${user.username}:${user.password}` === token)
 };
 
-export const isValidUser = () => {
-    return getCurrentUser() ? true : false;
-};
-
 export const getUserById = (id: number) => users.find(user => user.id === id);
 
 
@@ -73,13 +69,9 @@ export const refreshAnswerHistoryStorage = (answers: AnswerHistory[]) => {
 }
 
 
-export const addInHistory = (userId: number, questionId: string, text: string) => {
+export const addInHistory = (history: AnswerHistory) => {
     const historiesFormStorage = loadAnswerHistory();
-    historiesFormStorage.push({
-        userId,
-        questionId,
-        text
-    })
+    historiesFormStorage.push(history)
 
     refreshAnswerHistoryStorage(historiesFormStorage)
     

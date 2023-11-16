@@ -1,17 +1,17 @@
-import React, { Dispatch, SetStateAction, createContext, useContext, useState } from "react";
-import { getCurrentUser, loadQuestions } from "../helpers/helpers";
+import React, { createContext, useContext, useState } from "react";
+import { getCurrentUser, loadQuestions, refreshQuestionStorage } from "../helpers/helpers";
 import { Question } from "../types/Question";
 import { User } from "../types/User";
 
 type StateContext = {
     questions: Question[],
-    setQuestions: Dispatch<SetStateAction<Question[]>>,
+    updateQuestions: (questions: Question[]) => void 
     currentUser: User
 }
 
 export const StateContext = createContext<StateContext>({
     questions: [],
-    setQuestions: () => {},
+    updateQuestions: () => {},
     currentUser: {
         id: 0,
         name: "",
@@ -29,7 +29,10 @@ export const ContextProvider = ({ children }: { children: React.ReactNode }) => 
     return (
         <StateContext.Provider value={{
             questions,
-            setQuestions,
+            updateQuestions: (questions) => {
+                setQuestions(questions);
+                refreshQuestionStorage(questions);
+            },
             currentUser
         }}>
             {children}

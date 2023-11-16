@@ -1,11 +1,8 @@
-
-import { getCurrentUser } from "../helpers/helpers";
 import { useGlobalStateContext } from "../providers/context-provider";
 import Answer from "./answer";
 
 export default function Answers() {
-    const { questions } = useGlobalStateContext();
-    const currentUser = getCurrentUser();
+    const { questions, currentUser } = useGlobalStateContext();
 
     return (
         <>
@@ -19,7 +16,7 @@ export default function Answers() {
                         <div className="font-medium text-zinc-900 text-center mt-24">No questions available!</div>
                     )}
                     {questions.map(question => (
-                        <div key={question.id} className="flex flex-col gap-y-1 border rounded-lg py-1 px-3 bg-zinc-100">
+                        <div key={question.id} className="flex flex-col gap-y-1 border rounded-lg py-1 px-3 bg-zinc-50 shadow">
                             <div className="flex gap-x-3 items-center">
                                 <div className="font-medium text-red-600 text-3xl">Q</div>
                                 <div>{question.title}</div>

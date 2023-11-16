@@ -5,12 +5,11 @@ import AnswerForm from "./answer-form";
 import { PencilSquareIcon } from "@heroicons/react/24/outline";
 
 export default function Answer({ answers, questionId }: { answers: AnswerType[], questionId: string }) {
+    const  { currentUser } = useGlobalStateContext();
+    const answer = answers.find(answer => answer.userId === currentUser?.id) as AnswerType;
+
     const dialogRef = useRef<HTMLDialogElement>(null)
     const dialogVisibility = (status = false) => status ? dialogRef.current?.showModal() : dialogRef.current?.close();
-
-    const  { currentUser } = useGlobalStateContext();
-
-    const answer = answers.find(answer => answer.userId === currentUser?.id) as AnswerType;
 
     return (
         <>

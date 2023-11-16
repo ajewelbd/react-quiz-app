@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { Question } from "../types/Question";
-import { refreshQuestionStorage, uuid } from "../helpers/helpers";
+import { uuid } from "../helpers/helpers";
 import { useGlobalStateContext } from "../providers/context-provider";
 
 type NewQuestionProps = {
@@ -11,7 +10,7 @@ type NewQuestionProps = {
 
 export default function QuestionForm({ questionId = "", oldTitle = "", dialogRef }: NewQuestionProps) {
     const [title, setTitle] = useState(oldTitle);
-    const { questions, setQuestions } = useGlobalStateContext();
+    const { questions, updateQuestions } = useGlobalStateContext();
 
     const closeDialog = () => {
         dialogRef.current?.close();
@@ -25,33 +24,23 @@ export default function QuestionForm({ questionId = "", oldTitle = "", dialogRef
             answers: []
         }
 
-        const updatedQuestions = [...questions, question];
-        refreshQuestionStorage(updatedQuestions)
-        setQuestions((updatedQuestions) => {
-            return updatedQuestions
-        })
-        
+        return [...questions, question];
     }
 
     const update = () => {
-        setQuestions((questions) => {
-            const updatedQuestions = questions.map(question => {
-                if(question.id === questionId) {
-                    question.title = title
-                }
-                return question;
-            })
+        return questions.map(question => {
+            if(question.id === questionId) {
+                question.title = title
+            }
 
-            refreshQuestionStorage(updatedQuestions)
-            return updatedQuestions;
+            return question;
         })
     }
 
     const save = () => {
         if (title) {
-            if (questionId) update()
-            else add()
-        
+            const updatedQuestions = questionId ? update() : add();
+            updateQuestions(updatedQuestions)
             closeDialog();
         }
     }
