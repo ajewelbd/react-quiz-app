@@ -15,7 +15,7 @@ export default function AnswerHistory({ questionId }: { questionId:  string}) {
                     <div className="mt-9">
                     <p className="mb-1 text-sm text-zinc-700 font-bold">History</p>
                     <hr className="h-0 border-b border-solid border-grey-500 grow" />
-                    <div className="mt-1 flex flex-col gap-y-1.5">
+                    <div className="mt-1 flex flex-col gap-y-1.5 w-96">
                         {histories.map(({ id, text }) => (
                             <div key={id} className="flex gap-x-1 p-2 rounded bg-zinc-50 shadow">
                                 <ChevronDoubleRightIcon className="w-5 h-5" />
