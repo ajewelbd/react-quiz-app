@@ -6,16 +6,16 @@ import { InformationCircleIcon } from "@heroicons/react/20/solid";
 
 export default function Login() {
     const navigate = useNavigate();
-    
-    const loggedUser = getCurrentUser();
-    if(loggedUser) return (<Navigate to={loggedUser.homePage} />);
 
     const [credentials, setCredentials] = useState({
         username: "",
         password: ""
     })
-
     const [isWrongCredentials, setIsWrongCredentials] = useState(false);
+    
+    const loggedUser = getCurrentUser();
+    if(loggedUser) return (<Navigate to={loggedUser.homePage} />);
+
 
     const handleCredentials = (e: ChangeEvent<HTMLInputElement>) => {
         setCredentials(prev => ({
