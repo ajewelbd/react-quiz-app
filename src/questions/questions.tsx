@@ -1,17 +1,14 @@
-import { useEffect, useRef, useState } from "react";
-import { getCurrentUser, loadQuestions } from "../helpers/helpers";
-import { Question as QuestionType} from "../types/Question"
+import { useRef } from "react";
+import { getCurrentUser } from "../helpers/helpers";
 import Question from "./question";
 import QuestionForm from "./question-form";
+import { useGlobalStateContext } from "../providers/context-provider";
 
 export default function Questions() {
-    const [questions, setQuestions] = useState<QuestionType[]>([])
+    const { questions } = useGlobalStateContext();
     
     const currentUser = getCurrentUser();
 
-    useEffect(() => {
-        setQuestions(loadQuestions());
-    }, [])
 
     const addDialog = useRef<HTMLDialogElement>(null)
     const openDialog = () => addDialog.current?.showModal()
@@ -25,16 +22,16 @@ export default function Questions() {
                     </div>
                     <hr className="h-0 border-b border-solid border-grey-500 grow" />
                 </div>
-                <div className="flex flex-col gap-y-3">
+                <div className="flex flex-col gap-y-3 overflow-y-auto" style={{ height: "calc(100vh - 201px)"}}>
                     {!questions.length && (
                         <div className="font-medium text-zinc-900 text-center mt-24">No questions available!</div>
                     )}
-                    {questions.map(question => <Question key={question.id} question={question} setQuestions={setQuestions} />)}
+                    {questions.map(question => <Question key={question.id} question={question} />)}
                 </div>
             </div>
 
             <dialog ref={addDialog} id="add" className="p-7 rounded-md backdrop:bg-blend-darken">
-                <QuestionForm setQuestions={setQuestions} dialogRef={addDialog} />
+                <QuestionForm dialogRef={addDialog} />
             </dialog>
         </>
     )

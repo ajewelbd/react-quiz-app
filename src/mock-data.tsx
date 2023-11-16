@@ -17,7 +17,7 @@ export const users = [
     },
     {
         id: 3,
-        name: "User One",
+        name: "ABC User",
         role: "general",
         username: "userone",
         password: "123456",
@@ -25,17 +25,17 @@ export const users = [
     },
     {
         id: 4,
-        name: "User Two",
+        name: "DEF User",
         role: "general",
-        username: "userone",
+        username: "usertwo",
         password: "123456",
         homePage: "/"
     },
     {
         id: 5,
-        name: "User Three",
+        name: "XYZ User",
         role: "general",
-        username: "userone",
+        username: "userthree",
         password: "123456",
         homePage: "/"
     }

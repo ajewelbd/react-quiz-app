@@ -1,16 +1,12 @@
-import { useEffect, useState } from "react";
-import { getCurrentUser, loadQuestions } from "../helpers/helpers";
-import { Question } from "../types/Question";
-import QuestionAnswer from "./question-answer";
+
+import { getCurrentUser } from "../helpers/helpers";
+import { useGlobalStateContext } from "../providers/context-provider";
+import Answer from "./answer";
 
 export default function Answers() {
-    const [questions, setQuestions] = useState<Question[]>([])
-    
+    const { questions } = useGlobalStateContext();
     const currentUser = getCurrentUser();
 
-    useEffect(() => {
-        setQuestions(loadQuestions());
-    }, [])
     return (
         <>
             <div className="flex flex-col gap-y-7">
@@ -22,7 +18,18 @@ export default function Answers() {
                     {!questions.length && (
                         <div className="font-medium text-zinc-900 text-center mt-24">No questions available!</div>
                     )}
-                    {questions.map(question => <QuestionAnswer key={question.id} question={question} setQuestions={setQuestions} />)}
+                    {questions.map(question => (
+                        <div key={question.id} className="flex flex-col gap-y-1 border rounded-lg py-1 px-3 bg-zinc-100">
+                            <div className="flex gap-x-3 items-center">
+                                <div className="font-medium text-red-600 text-3xl">Q</div>
+                                <div>{question.title}</div>
+                            </div>
+                            <div className="flex gap-x-3 items-center">
+                                <div className="font-medium text-green-600 text-3xl">A</div>
+                                <Answer answers={question.answers} questionId={question.id}/>
+                            </div>
+                        </div>
+                    ))}
                 </div>
             </div>
         </>

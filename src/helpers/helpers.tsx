@@ -1,4 +1,5 @@
 import { defaultQuestions, users } from "../mock-data";
+import { AnswerHistory } from "../types/AnswerHistory";
 import { Question } from "../types/Question";
 
 export const uuid = () => crypto.randomUUID();
@@ -54,4 +55,32 @@ export const loadQuestions = () => {
 
 export const refreshQuestionStorage = (questions: Question[]) => {
     saveToStorage("questions", JSON.stringify(questions));
+}
+
+export const loadAnswerHistory = () => {
+    const answers = getFromStorage("answers");
+    try {
+        if (answers) {
+            return JSON.parse(answers);
+        } else return [];
+    } catch(e: unknown) {
+        return [];
+    }
+}
+
+export const refreshAnswerHistoryStorage = (answers: AnswerHistory[]) => {
+    saveToStorage("answers", JSON.stringify(answers));
+}
+
+
+export const addInHistory = (userId: number, questionId: string, text: string) => {
+    const historiesFormStorage = loadAnswerHistory();
+    historiesFormStorage.push({
+        userId,
+        questionId,
+        text
+    })
+
+    refreshAnswerHistoryStorage(historiesFormStorage)
+    
 }

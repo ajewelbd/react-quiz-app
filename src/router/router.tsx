@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import Login from "../auth/login";
-import AuthGuard from "./auth-guard";
+import AuthGuard from "../auth/auth-guard";
 
 const routes = [
     {

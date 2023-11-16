@@ -23,7 +23,7 @@ export default function QuestionAnswer({ question, setQuestions }: QuestionAnswe
 
     return (
         <>
-            <div className="flex flex-col gap-y-1 border rounded-lg py-1 px-3">
+            <div className="flex flex-col gap-y-1 border rounded-lg py-1 px-3 bg-zinc-100">
                 <div className="flex gap-x-3 items-center">
                     <div className="font-medium text-red-600 text-3xl">Q</div>
                     <div>{question.title}</div>
